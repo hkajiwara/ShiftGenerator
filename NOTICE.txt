@@ -1,0 +1,4 @@
+This product includes software developed by
+Twitter Bootstrap        (https://github.com/twitter/bootstrap/)
+Intro.js                 (https://github.com/usablica/intro.js)
+jQuery-Validation-Engine (https://github.com/posabsolute/jQuery-Validation-Engine)

@@ -1,0 +1,87 @@
+:javascript
+  $(function(){
+   jQuery("#generate_id").validationEngine();
+  });
+
+%h3
+  .text-muted
+    Generate Shifts
+%br
+
+%form.form-horizontal{:action => "/shift", :method => "post", :id => "generate_id"}
+  .form-group
+    %a.btn.btn-large.btn-success{:href => "javascript:void(0);", :onclick => "javascript:introJs().start();"} 
+      %span.glyphicon.glyphicon-question-sign{"aria-hidden" => "true"}
+      How to use?
+
+  .row
+    .col-xs-6
+      .form-group
+        %label.col-sm-6.control-label{:for => "inputMembers"}
+          .glyphicon.glyphicon-user
+        .col-sm-6{"data-intro" => "List members in a rows", "data-step" => "1"}
+          %textarea#inputMembers.form-control{:name => "members", :placeholder => "Members list", :rows => 10, :class => "validate[required]"}
+
+    .col-xs-6
+      .form-group
+        %label.col-sm-2.control-label{:for => "inputCount" }
+          .glyphicon.glyphicon-calendar
+        .col-sm-8{"data-intro" => "Input the number of assignments (e.g. 10)", "data-step" => "2"}
+          %input#inputAssignmentNames.form-control{:name => "count", :placeholder => "Number of assignments", :type => "number", :class => "validate[required],custom[integer],min[1],max[30]"}
+      
+      .form-group
+        %label.col-sm-2.control-label{:for => "inputStart" } 
+          .glyphicon.glyphicon-time
+        .col-sm-5{"data-intro" => "Select the start offset (e.g. 9)", "data-step" => "3"}
+          %select.form-control{:name => "start"}
+            %option{:value => "9"} 9
+            %option{:value => "10"} 10
+            %option{:value => "11"} 11
+            %option{:value => "12"} 12
+            %option{:value => "1"} 1
+            %option{:value => "2"} 2
+            %option{:value => "3"} 3
+            %option{:value => "4"} 4
+            %option{:value => "5"} 5
+            %option{:value => "6"} 6
+            %option{:value => "7"} 7
+            %option{:value => "8"} 8
+
+      .form-group
+        %label.col-sm-2.control-label{:for => "inputMark" } 
+          .glyphicon.glyphicon-pencil
+        .col-sm-5{"data-intro" => "Select the type of marks (e.g. colors)", "data-step" => "4"}
+          %select.form-control{:name => "mark"}
+            %option{:value => "colors"} colors
+            %option{:value => "characters"} characters
+            %option{:value => "both"} both
+
+  .row
+    - @assignment_count.times do |counts|
+      .col-xs-4
+        .form-group
+          %label.col-sm-2.control-label{:for => "inputAssignmentNames#{counts}"}
+            .glyphicon.glyphicon-tag
+          .col-sm-10{"data-intro" => "Input the assignment name (e.g. special work)", "data-step" => "5"}
+            %input#inputAssignmentNames.form-control{:name => "assignment_name#{counts}", :placeholder => "Assignment name #{counts+1}", :type => "text"}
+          
+          %label.col-sm-2.control-label{:for => "inputMemberAssignments#{counts}"}
+            .glyphicon.glyphicon-user
+          .col-sm-10{"data-intro" => "Input the member assignment (e.g. 3,3,4)", "data-step" => "6"}
+            - if counts == 0 then
+              %input#inputMemberAssignments.form-control{:name => "member_assignments#{counts}", :placeholder => "Member assignment", :type => "text", :class => "validate[required],custom[onlyNumberArray]"}
+            - else
+              %input#inputMemberAssignments.form-control{:name => "member_assignments#{counts}", :placeholder => "Member assignment", :type => "text", :class => "validate[custom[onlyNumberArray]]"}
+          
+          %label.col-sm-2.control-label{:for => "inputTimeAssignments#{counts}"}
+            .glyphicon.glyphicon-time
+          .col-sm-10{"data-intro" => "Input the time assignment (e.g. 3,3,3)", "data-step" => "7"}
+            - if counts == 0 then
+              %input#inputTimeAssignments.form-control{:name => "time_assignments#{counts}", :placeholder => "Time assignment", :type => "text", :class => "validate[required],custom[onlyNumberArray]"}
+            - else
+              %input#inputTimeAssignments.form-control{:name => "time_assignments#{counts}", :placeholder => "Time assignment", :type => "text", :class => "validate[custom[onlyNumberArray]]"}
+
+  .form-group
+    %button.btn.btn-primary{:type => "submit"}
+      %span.glyphicon.glyphicon-equalizer{"aria-hidden" => "true"}
+      Generate

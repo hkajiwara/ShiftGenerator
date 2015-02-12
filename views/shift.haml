@@ -1,0 +1,109 @@
+%h3
+  .text-muted
+    Generated Shifts
+%br
+
+.row
+  .col-md-2
+  .col-md-8
+    / shift tables
+    - summary = Hash.new{|hash, key| hash[key] = []}
+    - @members.each do |member|
+      - summary[member] = Array.new(@assignments.size+1) {0}
+
+    / iterate over the shifts
+    - @count.times do |shift_count|
+      .panel.panel-default
+        .panel-heading
+          Shift No.#{sprintf("%02d", shift_count+1)}
+        %table.table.table-bordered.table-condensed
+          %thead
+            %tr{bgcolor: "#bac1c7"}
+              %th
+                = "NAME"
+              - i = @start
+              - space = "\u00a0" * 4
+              - @max_time_length.times do
+                %th 
+                  = sprintf("%02d", i)
+                %th 
+                  = space
+                - i = i + 1
+          %tbody
+            / iterate over the members
+            - @members.each do |member|
+              %tr
+                - if @shifts[shift_count].flatten.include?(member) then
+                  / iterate over the assignments
+                  - @assignments.each_with_index do |assignment, assignment_index|
+                    - if @shifts[shift_count][assignment_index].flatten.include?(member) then
+                      - summary[member][assignment_index] += 1
+                      - summary[member][summary[member].size-1] += 1
+
+                      -# mark as
+                      - if @mark == "characters" then
+                        %td
+                          #{member}
+                      - else
+                        %td{bgcolor: "#{@DECORATED_CEL[:color][assignment_index]}", style: "color: #ffffff;"}
+                          #{member}
+                      
+                      / iterate over the group
+                      - assignment.time_assignments.size.times do |group|
+                        - if @shifts[shift_count][assignment_index][group].include?(member) then
+                          - assignment.time_assignments[group].times do
+
+                            -if @mark == "characters" then
+                              %td 
+                                #{@DECORATED_CEL[:characters][assignment_index]}
+                              %td 
+                                #{@DECORATED_CEL[:characters][assignment_index]}
+                            - elsif @mark == "colors" then
+                              %td{bgcolor: "#{@DECORATED_CEL[:color][assignment_index]}"}
+                              %td{bgcolor: "#{@DECORATED_CEL[:color][assignment_index]}"}
+                            - else
+                              %td{bgcolor: "#{@DECORATED_CEL[:color][assignment_index]}"} 
+                                #{@DECORATED_CEL[:characters][assignment_index]}
+                              %td{bgcolor: "#{@DECORATED_CEL[:color][assignment_index]}"} 
+                                #{@DECORATED_CEL[:characters][assignment_index]}
+                        - else
+                          - assignment.time_assignments[group].times do
+                            %td
+                            %td     
+                - else
+                  %td{style: "color: #a9a9a9;"}
+                    #{member}
+                  - @max_time_length.times do 
+                    %td
+                    %td
+
+    / summary table
+    .panel.panel-default
+      .panel-heading
+        Summary
+      %table.table.table-bordered.table-condensed.table-striped
+        %thead
+          %tr
+            %th
+              = "NAME"
+            - @assignments.each_with_index do |assignment, assignment_index|
+              - if @mark == "colors" then
+                %th{style: "color: #{@DECORATED_CEL[:color][assignment_index]}"} 
+                  #{assignment.assignment_name} 
+              - else
+                %th{style: "color: #{@DECORATED_CEL[:color][assignment_index]}"} 
+                  #{assignment.assignment_name}
+                  (#{@DECORATED_CEL[:characters][assignment_index]})
+            %th
+              = "Total"
+        %tbody
+          - @members.each do |member|
+            %tr
+              %td
+                #{member}
+              - @assignments.each_with_index do |assignment, assignment_index|
+                %td{style: "color: #{@DECORATED_CEL[:color][assignment_index]}"}
+                  #{summary[member][assignment_index]}
+              %td{style: "font-weight:bold;"}
+                #{summary[member][summary[member].size-1]}
+  .col-md-2

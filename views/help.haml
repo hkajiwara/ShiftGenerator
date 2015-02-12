@@ -1,0 +1,17 @@
+.carousel.slide{:id=>"slide-images", :data => {:ride => "carousel"}}
+  %ol.carousel-indicators
+    %li.active{:data => {:target => "slide-images", :slide_to => "0"}}
+    %li{:data => {:target => "slide-images", :slide_to => "1"}}
+    %li{:data => {:target => "slide-images", :slid1_to => "2"}}
+  .carousel-inner
+    .item.active
+      %img{:src => "img/ShiftGen1.png", :alt => ""}
+    .item
+      %img{:src => "img/ShiftGen2.png", :alt => ""}
+    .item
+      %img{:src => "img/ShiftGen3.png", :alt => ""}
+
+  %a.left.carousel-control{:href => "#slide-images", :data => {:slide => "prev"}, :style => "background-image: none"}
+    %span.glyphicon.glyphicon-chevron-left{:style => "color:black"}
+  %a.right.carousel-control{:href => "#slide-images", :data => {:slide => "next"}, :style => "background-image: none"}
+    %span.glyphicon.glyphicon-chevron-right{:style => "color:black"}

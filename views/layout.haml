@@ -1,0 +1,42 @@
+!!!
+%html
+  %head
+    %title
+      ShiftGen
+    %link(rel='stylesheet' href='css/bootstrap.min.css')
+    %link(rel='stylesheet' href='css/bootstrap-theme.min.css')
+    %link(rel='stylesheet' href='css/validationEngine.jquery.css')
+    %link(rel='stylesheet' href='css/introjs.min.css')
+    %link(rel='stylesheet' href='shiftgen.css')
+    %link(rel='stylesheet' href='fonts/glyphicons-halflings-regular.eot')
+    %link(rel='stylesheet' href='fonts/glyphicons-halflings-regular.svg')
+    %link(rel='stylesheet' href='fonts/glyphicons-halflings-regular.ttf')
+    %link(rel='stylesheet' href='fonts/glyphicons-halflings-regular.woff')
+    %link(rel='stylesheet' href='fonts/glyphicons-halflings-regular.woff2')
+      
+  %body
+    .container-fluid
+      .navbar.navbar-default{role: "navigation"}
+        .container-fluid
+          .navbar-header
+            %a.navbar-brand{href: "/"} ShifGen
+          .navbar-collapse.collapse
+            %ul.nav.navbar-nav
+              %li
+                %a{href: "generate"} Generate
+              %li
+                %a{href: "help"} Help
+    %script{src: "https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"}
+    %script{src: "js/bootstrap.min.js"}
+    %script{src: "js/jquery.validationEngine.js"}
+    %script{src: "js/jquery.validationEngine-en.js"}
+    %script{src: "js/intro.min.js"}
+
+    .container
+      != yield
+
+      %footer
+        %hr
+        .container
+          .text-muted
+            Copyright ©2015 ShiftGen. All Rights Reserved.
