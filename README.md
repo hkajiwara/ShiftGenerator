@@ -10,12 +10,12 @@ _Simply, Randomly and Evenly generate shifts_
 
 ## Test & exec
 
-1. Test
+1.Test
 ```
 $ bundle exec rspec spec
 ```
 
-2. Exec
+2.Exec
 ```
 $ bundle exec rackup config.ru
 ```
