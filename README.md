@@ -1,6 +1,7 @@
 # ShiftGenerator
 
 [![Build Status](https://travis-ci.org/hkajiwara/ShiftGenerator.svg?branch=master)](https://travis-ci.org/hkajiwara/ShiftGenerator)
+[![Test Coverage](https://codeclimate.com/github/hkajiwara/ShiftGenerator/badges/coverage.svg)](https://codeclimate.com/github/hkajiwara/ShiftGenerator)
 
 _Simply, Randomly and Evenly generate shifts_
 
